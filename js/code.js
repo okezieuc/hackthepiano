@@ -1,4 +1,5 @@
 $(function(){
+	var currentLevel = "beginner1";
 	var settings = {
 		numberOfKeys: 88,
 		shiftSize: 0.113,
@@ -1469,10 +1470,20 @@ $(function(){
 		});
 	};
 
+	var speeds = [5000, 4000, 2000, 1000, 500, 250];
+	speeds.forEach(function(l){
+		$('#speed').append('<option value="' + l + '">' + l + '</option>');
+	});
+	$('#speed').change(function() {
+		settings.newNoteInterval = parseInt($(this).val());
+		setup(currentLevel);
+	});
+
 	Object.keys(levels).forEach(function(l){
 		$('#level').append('<option value="' + l + '">' + levels[l].name + '</option>');
 	});
 	$('#level').change(function() {
+		currentLevel = $(this).val();
 		setup($(this).val());
 	});
 	setup(Object.keys(levels)[0]);
